@@ -39,12 +39,11 @@ See the [full CLI docs below](#install).
 - [`/agent-watchdog`](#agent-watchdog) - Audit another agent's work.
 - [`/plan-arbiter`](#plan-arbiter) - Compare competing plans and choose a direction.
 - [`/plow-ahead`](#plow-ahead) - Keep working through ordinary ambiguity.
-- [`/efficient-fable`](#efficient-fable) - Orchestrate Fable with cheaper helper agents.
-- [`/efficient-frontier`](#efficient-frontier) - Preserve high-cost models for judgment.
+- [`/efficient-orchestrator`](#efficient-orchestrator) - Keep an expensive model on judgment while cheap agents do the heavy lifting (aliases: `/efficient-frontier`, `/efficient-fable`).
 - [`/stay-within-limits`](#stay-within-limits) - Track usage limits before long-running work.
 - [`/quick-recap`](#quick-recap) - End work with a clear status signal.
 - [`/read-the-damn-docs`](#read-the-damn-docs) - Check authoritative docs before guessing.
-- [`/turn-into-app`](#turn-into-app) - Turn the current thread or a skill into a runnable Agent-Native app.
+- [`/turn-into-app`](#turn-into-app) - Turn a thread, skill, spreadsheet, or Claude/ChatGPT project into a visual Agent-Native app.
 
 ## Skill Details
 
@@ -308,30 +307,22 @@ Solves for explicit autonomy requests: the agent converts routine questions into
 assumptions, proceeds with conservative choices, validates the work, and recaps
 the decisions it made without stopping.
 
-### [`/efficient-fable`](skills/efficient-fable/README.md)
+### [`/efficient-orchestrator`](skills/efficient-orchestrator/README.md)
 
-Use Claude Fable as the orchestrator, architect, synthesizer, and final judge
-while lighter agents handle token-heavy research, coding, testing, and log
-reduction.
+Run an expensive model (Claude Fable or Opus, OpenAI Astra or Sol) as the
+orchestrator, architect and final judge while cheaper agents (Haiku or Sonnet,
+Terra or Luna) handle token-heavy research, coding, QA and log reduction. It runs
+only when invoked by name; `/efficient-frontier` and `/efficient-fable` are
+aliases.
 
-Solves for expensive-model waste: Fable should spend tokens on judgment, not on
-reading every file, reducing every log, or manually running every browser check.
+Solves for expensive-model waste without unrequested fan-out: the premium model
+spends tokens on judgment, and helpers stay capped and short-lived.
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="skills/efficient-fable/assets/fable-orchestrator-dark.png">
-  <source media="(prefers-color-scheme: light)" srcset="skills/efficient-fable/assets/fable-orchestrator.png">
-  <img alt="Fable orchestrator diagram" src="skills/efficient-fable/assets/fable-orchestrator.png">
+  <source media="(prefers-color-scheme: dark)" srcset="skills/efficient-orchestrator/assets/fable-orchestrator-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="skills/efficient-orchestrator/assets/fable-orchestrator.png">
+  <img alt="Orchestrator diagram" src="skills/efficient-orchestrator/assets/fable-orchestrator.png">
 </picture>
-
-### [`/efficient-frontier`](skills/efficient-frontier/README.md)
-
-Apply the same orchestration as `/efficient-fable` to any high-cost frontier
-model: preserve the expensive model for planning, tradeoffs, integration,
-validation strategy, and final review; use cheaper agents for bounded heavy
-lifting.
-
-Solves for broad work that can be parallelized without asking the most expensive
-model to do every scan and every edit itself.
 
 ### [`/stay-within-limits`](skills/stay-within-limits/README.md)
 
@@ -376,14 +367,37 @@ usually the first move.
 
 ### [`/turn-into-app`](skills/turn-into-app/README.md)
 
-At the end of a thread, turn the current workflow into a fresh Agent-Native app
-with clear buttons, visible agent steps, a running local preview, and a concise
-deployment handoff. At the beginning of a thread, pass a skill name or workflow
-path, such as `/turn-into-app /some-skill`, to use that source immediately.
-Codex threads and local transcript exports work today; ChatGPT shared links and
-Claude web/project imports are marked coming soon. The result should be the
-concrete workflow app, not a generic app-builder intake form. Local previews can
-use ignored `.env` setting `AUTH_DISABLED=1` so they open without an account.
+Give a workflow you have already proven the face of an app and the brain of an
+agent. Turn a thread, a skill, a spreadsheet, or a Claude or ChatGPT project
+into a visual Agent-Native app that opens on your world, populated: a week grid
+for scheduling work, a board for stages, a live workbench for a spreadsheet
+model, a triage queue with a drafted reply. Buttons sit on the objects they act
+on, so you click, watch the agent work, and see the result land back in the app.
+
+A form under a step bar is the failure it is built to avoid. The skill picks the
+app's shape from the source, commits to a visual direction with real light and
+dark tokens, seeds realistic sample data, builds the agent moments into the
+objects, and reviews its own screenshots at desktop and phone sizes before it
+hands the app back.
+
+<picture>
+  <img alt="Before and after: a form and a plain table become a findings workbench, a spreadsheet workbench with sliders and a chart, and a call-prep queue" src="media/turn-into-app-before-after.png">
+</picture>
+
+Install it, then try one of these:
+
+```sh
+npx @agent-native/skills@0.3.20 add --skill turn-into-app
+```
+
+- `/turn-into-app` at the end of a thread
+- `/turn-into-app /some-skill` to package a skill
+- `/turn-into-app ./forecast.xlsx` to turn a spreadsheet into a workbench
+- `/turn-into-app ./project-export/` to turn a Claude or ChatGPT project into an app
+
+It builds and verifies locally in Claude Code, Codex, Cursor, and other coding
+agents; Claude and ChatGPT on the web hand a bounded brief to Builder through
+Dispatch. Read the [full guide](skills/turn-into-app/README.md).
 
 ## Install
 

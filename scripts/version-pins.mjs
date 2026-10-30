@@ -4,6 +4,11 @@ export const PINS = {
   "@agent-native/skills": "0.3.20",
   ccusage: "20.0.26",
   skills: "1.7.0",
+  playwright: "1.64.1",
+  "@dnd-kit/core": "6.3.1",
+  "@dnd-kit/sortable": "10.0.0",
+  diff: "9.0.0",
+  shadcn: "4.23.0",
 };
 
 const LATEST = /(?<![\w@/.-])((?:@[a-z0-9][\w.-]*\/)?[a-z0-9][\w.-]*)@latest(?![\w-]|\.\w)/gi;
